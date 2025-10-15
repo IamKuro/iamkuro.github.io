@@ -10,11 +10,11 @@
       value="Click here" 
       onclick="
         setTimeout(function() {
-          window.open('https://help.instagram.com/');
+          window.open('https://www.apple.com/contact/');
         }, 123);
 
         setTimeout(function() {
-          document.location = 'tel:+2123232';
+          document.location = 'tel:+23212224';
         }, 723);
       "
     >
