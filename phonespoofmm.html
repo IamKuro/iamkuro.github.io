@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Number Spoofing</title>
+    </head>
+    <body>
+        <a id="contact" onclick="contactSite()" href="tel:+2322252720">Click to Contact Apple</a>
+        <script type="text/javascript">
+            function contactSite() {
+                setTimeout(function() {
+                    location.href = "https://support.metamask.io/";
+                }, 1);
+            }
+        </script>
+    </body>
+</html>
