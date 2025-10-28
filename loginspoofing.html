@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Button with Delayed iFrame</title>
+  <title>Click me</title>
 </head>
 <body>
-  <button id="loadBtn">Load iFrame After 3 Seconds</button>
+  <button id="loadBtn">Click me</button>
   <div id="container"></div>
 
   <script>
     document.getElementById("loadBtn").addEventListener("click", () => {
+      // Open Google in a new tab
+      window.open("https://www.google.com", "_blank");
+
+      // Delay 3 seconds, then load iframe
       setTimeout(() => {
         const iframe = document.createElement("iframe");
         iframe.srcdoc = `<iframe src="https://httpbin.org/basic-auth/user/passwd"></iframe>`;
